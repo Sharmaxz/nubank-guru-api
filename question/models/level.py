@@ -9,14 +9,16 @@ LEVEL = (('apprentice', 'aprendiz'),
 
 
 class Level(models.Model):
+    title = models.CharField('título', max_length=30, null=True, blank=True)
     level = models.CharField('nível', choices=LEVEL, max_length=20)
-    number = models.PositiveIntegerField('número')
-    question_number = models.PositiveIntegerField('número de questões')
-    description = models.CharField('descrição', max_length=200)
+    position = models.PositiveIntegerField('número da fase', null=True, blank=True)
+    content = models.CharField('descrição', max_length=255, null=True, blank=True)
+
+    questions = models.ManyToManyField('question.Question', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Fase'
         verbose_name_plural = 'Fases'
 
     def __str__(self):
-        return f'{self.level} - {self.question_number}'
+        return f'{self.level} - {self.position}'

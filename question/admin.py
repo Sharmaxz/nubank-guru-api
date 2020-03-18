@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from question.models import Answer, Level
+from question.models import Answer, Level, Question
 
 
 class AnswerAdmin(admin.ModelAdmin):
@@ -14,9 +14,13 @@ class AnswerInline(admin.TabularInline):
 
 
 class LevelAdmin(admin.ModelAdmin):
-    list_display = ('__str__',)
+    list_display = ('title', 'level', 'position')
+
+class QuestionAdmin(admin.ModelAdmin):
+
     inlines = (AnswerInline,)
 
 
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Level, LevelAdmin)
+admin.site.register(Question, QuestionAdmin)
