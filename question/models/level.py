@@ -14,11 +14,11 @@ class Level(models.Model):
     position = models.PositiveIntegerField('número da fase', null=True, blank=True)
     content = models.CharField('descrição', max_length=255, null=True, blank=True)
 
-    questions = models.ManyToManyField('question.Question', null=True, blank=True)
+    questions = models.ManyToManyField('question.Question', blank=True)
 
     class Meta:
         verbose_name = 'Fase'
         verbose_name_plural = 'Fases'
 
     def __str__(self):
-        return f'{self.level} - {self.position}'
+        return f'{self.position} - {self.level}'

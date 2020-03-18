@@ -56,7 +56,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = '__all__'
 
-    def get_answers(self, instance):
+    def get_questions(self, instance):
         questions = instance.questions.all().order_by('order')
         return QuestionAnswerSerializer(questions, many=True, context={'request': self.context['request']}).data
 

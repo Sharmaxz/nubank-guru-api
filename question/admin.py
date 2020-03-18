@@ -17,7 +17,7 @@ class LevelAdmin(admin.ModelAdmin):
     list_display = ('title', 'level', 'position')
 
 class QuestionAdmin(admin.ModelAdmin):
-
+    list_display = ('title', 'position')
     inlines = (AnswerInline,)
 
 

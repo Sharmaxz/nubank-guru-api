@@ -3,7 +3,7 @@ from django.db import models
 
 class Answer(models.Model):
     question = models.ForeignKey('question.Question', on_delete=models.CASCADE,
-                              related_name='questions', verbose_name='Respostas', blank=True, null=True)
+                              related_name='questions', verbose_name='Questão', blank=True, null=True)
     text = models.CharField('resposta', max_length=140)
     order = models.PositiveIntegerField('ordem')
     is_correct = models.BooleanField('é a resposta certa?', default=False)

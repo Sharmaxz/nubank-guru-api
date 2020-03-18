@@ -11,4 +11,4 @@ class Question(models.Model):
         verbose_name_plural = 'Questões'
 
     def __str__(self):
-        return f'{self.title} - {self.position}'
+        return f'{self.position} - {self.title}'
