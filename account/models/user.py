@@ -6,6 +6,7 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, email, first_name, last_name, password, **extra_fields):
+        print(email)
         email = self.normalize_email(email)
         user = self.model(username=email,
                           email=email,
@@ -30,14 +31,15 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+
     # admin
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name']
     objects = UserManager()
 
     class Meta:
@@ -46,3 +48,9 @@ class User(AbstractUser):
 
     def str(self):
         return self.email
+
+    def save(self, *args, **kwargs):
+        if not self.email:
+            self.email = self.username
+
+        super(User, self).save(*args, **kwargs)

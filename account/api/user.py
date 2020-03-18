@@ -48,25 +48,3 @@ class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'password', 'first_name', 'last_name')
-
-
-class SignUpViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = SignUpSerializer
-    filter_backends = ()
-    http_method_names = ['post']
-    permission_classes = (AllowAny,)
-
-    def create(self, request, **kwargs):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            User.objects._create_user(
-                email=request.data['email'],
-                first_name=request.data['first_name'],
-                last_name=request.data['last_name'],
-                password=request.data['password'],
-            )
-        else:
-            return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
