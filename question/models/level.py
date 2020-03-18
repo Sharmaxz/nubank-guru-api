@@ -9,10 +9,10 @@ LEVEL = (('apprentice', 'aprendiz'),
 
 
 class Level(models.Model):
-    title = models.CharField('título', max_length=30, null=True, blank=True)
+    title = models.CharField('título', max_length=30)
     level = models.CharField('nível', choices=LEVEL, max_length=20)
-    position = models.PositiveIntegerField('número da fase', null=True, blank=True)
-    content = models.CharField('descrição', max_length=255, null=True, blank=True)
+    position = models.PositiveIntegerField('número da fase')
+    content = models.CharField('descrição', max_length=255)
 
     questions = models.ManyToManyField('question.Question', blank=True)
 
